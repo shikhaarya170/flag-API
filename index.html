@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>country-flag Assignment </title>
+</head>
+
+<body>
+    <div id=wrapper>
+        <header>
+            <h1>search country</h1>
+        </header>
+
+
+
+        <section id="search">
+
+            <form action="">
+                <input type="text" placeholder="search country">
+                <button>search</button>
+            </form>
+        </section>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const form = document.querySelector('form');
+        const flaginfo = document.querySelector('input');
+
+
+        form.onsubmit = (e) => {
+            e.preventDefault();
+            fetch("https://flagcdn.com/en/codes.json")
+
+                .then((response) => { return response.json() })
+                .then((result) => {
+                    displayflag(result, flaginfo.value)
+                })
+
+        }
+        function displayflag(result, flaginfo) {
+
+            for (let eachvalue in result) {
+                flaginfo = flaginfo.toLowerCase()
+                
+                if (result[eachvalue].toLowerCase() === flaginfo) {
+                    let img = document.createElement('img');
+                    img.src = "https://flagcdn.com/256x192/" + eachvalue + ".png";
+                    document.querySelector("#result").append(img)
+
+                }
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>
